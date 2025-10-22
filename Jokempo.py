@@ -132,7 +132,7 @@ def jogo(qntdDeRodadas):
         else:
             print("\nInsira um número dentro do intervalo entre 1 e 3")
 
-    #Para ver se o jogador vai querer jogar novamente
+    #Placar do Jogador e do Computador
     print(f"Jogador/Computador \n{pontosJ}     /  {pontosC}")
 
 def main():
@@ -155,3 +155,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
