@@ -1,0 +1,160 @@
+from sys import exit
+class Notas:
+    
+    def __init__(self):
+        self.usuario = None
+        self.senha = None
+        self.notas = []
+    
+    def menu(self):
+        while True:
+            print("1) Cadastre-se\n2) Bloco de Notas\n3) Sair")
+            try:
+                opcao = int(input("-> "))
+                
+                if opcao == 1:
+                    self.cadastro()
+                    
+                elif opcao == 2:
+                    self.bloco_De_Notas()
+                    
+                elif opcao == 3:
+                    print("Fechando...")
+                    break
+                    
+                else:
+                    print("Insira um número entre 1 e 3!!")
+            
+            except ValueError:
+                print("Insira um número válido!")
+        
+            
+    def bloco_De_Notas(self):
+        if self.login() == True:
+            print("Bem-Vindo ao Bloco de Notas.")
+            
+            while True:
+                print("\n1) Criar uma nova anotação\n2) Ver anotações\n3) Sair")
+                try:
+                    opcao = int(input("-> "))
+                    
+                    if opcao == 1:
+                        self.Anotacoes()
+                        
+                    elif opcao == 2:
+                        self.exibir_Anotações()
+                        continue
+                        
+                    elif opcao == 3:
+                        print("Fechando o Bloco de Notas")
+                        exit(0)
+                                            
+                    else:
+                        print("Digite um número dentro do intervalo entre 1 e 3")
+                        
+                except ValueError:
+                    print("Digite um número válido")
+                    continue
+            
+    def cadastro(self):
+        if not self.usuario:
+            self.usuario = input("\nNome de usuário: ").strip()
+            self.senha = input("Senha: ").strip()
+            print("\nUsuário cadastrado com sucesso!\n")
+            return
+        
+        else:
+            print("Usuário já existente!\n")
+        
+        
+    def login(self):
+        if self.usuario is None:
+            print("\nNenhum usuário cadastrado. Vá ao menu de cadastro para criar um.\n")
+            return False
+            
+        else:
+            while True:
+                usuario = input("\nDigite seu usuário para Login: ")
+                senha = input("Digite sua senha para Login: ")
+                if usuario == self.usuario and senha == self.senha:
+                    print("\nLogado com sucesso!\n")
+                    return True
+                
+                else:
+                    print("\nLogin inválido. Tente novamente\n")
+                    
+            
+    def Anotacoes(self):
+        anotacao = input("|")
+        self.notas.append(anotacao)
+        
+        while True:
+            salvar = input("Deseja salvar essa nota? S/N\n-> ").lower().strip()
+            
+            if salvar in ["s", "sim"]:
+                print("\nAnotação salva com sucesso!")
+                return
+                
+            elif salvar in ["n", "nao"]:
+                print(f"\nA anotação '{anotacao}' foi deletado")
+                self.notas.remove(anotacao)
+                return
+            
+            else:
+                print("Apenas 'S/N' são válidos!")
+                continue
+            
+    def exibir_Anotações(self):
+        while True:
+            if not self.notas:
+                print()
+                print("=" *11,"Vazio", "=" *11)
+                return
+            
+            else:
+                print()
+                listagem = 0
+                for i in self.notas:
+                    listagem += 1
+                    print(listagem, end="")
+                    print(".", i)
+                    print("\nQuer deletar alguma dessas anotações?")
+                
+                while True:
+                    opcao = input("S/N -> ").lower().strip()
+                    
+                    if opcao in ["s", "sim"]:
+                        self.deletar_Anotacoes()
+                        return
+                    
+                    elif opcao in ["n", "nao"]:
+                        return
+                    
+                    else:
+                        print("Apenas 'S/N' são válidos")
+                        continue
+                
+        
+    def deletar_Anotacoes(self):
+        print("Qual?")
+        
+        while True:
+            for numeração in self.notas:
+                try:
+                    opcao = int(input("-> ")) -1
+                    
+                    if opcao == self.notas.index(numeração):
+                            self.notas.pop(opcao)
+                            print(f"A anotação '{numeração}' foi deletada")
+                            return
+                    else:
+                        print("Opção inválida!!")
+                        continue
+                except ValueError:
+                    print("Opção inválida!!")
+                    continue
+                
+                
+if __name__ == "__main__":
+    app = Notas()
+    app.menu()
